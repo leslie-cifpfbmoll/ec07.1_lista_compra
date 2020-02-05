@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Introducing Components</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .item {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .item li {
+            text-decoration: none;
+            border: solid 1px black;
+            width: 50%;
+            background-color: rgb(230, 228, 154);
+        }
+        
+        .item li input {
+            width: 35px;
+        }
+        
+        .unidad {
+            width: 35px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="body">
+        <ul v-bind:class="item">
+            <li v-for="(producto,index) in productos">
+                <span>{{ producto.nombre }} </span>
+                <span>{{ producto.precio }}€ x </span>
+                <input v-model:value=producto.unidad type="number">
+
+                <span>uds. = {{ totalProducto }} </span>
+                <button v-on:click="totalProducto(index)">X</button>
+                <button v-on:click="borrar(index)">X</button>
+            </li>
+        </ul>
+        <p>Producto: <input class="producto"> Precio: <input class="precio" type="number"></p>
+
+        <p> <button v-on:click="agregar">Agregar</button>
+            <button v-on:click="borrar_ultimo">Borrar</button></p>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#body ',
+            data: {
+                productos: [{
+                    nombre: 'plato ',
+                    precio: 2,
+                    unidad: 1
+                }],
+                item: 'item'
+            },
+            methods: {
+                agregar: function() {
+                    nombre = $(".producto").val();
+                    precio = $(".precio").val();
+                    unidad = 1;
+                    this.productos.push({
+                        nombre,
+                        precio,
+                        unidad
+                    })
+                },
+                borrar_ultimo: function() {
+                    this.productos.splice(-1);
+                },
+                borrar: function(index) {
+                    this.productos.splice(index, 1);
+                }
+            },
+            computed: {
+                totalProducto: function(index) {
+
+                }
+            }
+
+        })
+    </script>
+</body>
+
+
+
+</html>
