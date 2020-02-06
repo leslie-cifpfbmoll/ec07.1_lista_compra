@@ -26,6 +26,10 @@
             width: 35px;
         }
         
+        .rojo {
+            color: red;
+        }
+        
         .unidad {
             width: 35px;
         }
@@ -35,14 +39,14 @@
 <body>
     <div id="body">
         <ul v-bind:class="item">
-            <li v-for="(producto,index) in productos">
+            <li v-for="(producto,index) in productos" v-bind:class="{ rojo : producto.precio>10}">
                 <span>{{ producto.nombre }} </span>
                 <span>{{ producto.precio }}€ x </span>
                 <input v-model:value=producto.unidad type="number">
 
                 <span>uds. = {{ totalProducto }} </span>
-                <button v-on:click="totalProducto(index)">X</button>
-                <button v-on:click="borrar(index)">X</button>
+
+                <button v-on:click="borrar(index)">borrar</button>
             </li>
         </ul>
         <p>Producto: <input class="producto"> Precio: <input class="precio" type="number"></p>
@@ -60,7 +64,8 @@
                     precio: 2,
                     unidad: 1
                 }],
-                item: 'item'
+                item: 'item',
+                rojo: 'rojo'
             },
             methods: {
                 agregar: function() {
@@ -81,7 +86,7 @@
                 }
             },
             computed: {
-                totalProducto: function(index) {
+                totalProducto: function() {
 
                 }
             }
