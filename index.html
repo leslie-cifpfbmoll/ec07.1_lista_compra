@@ -37,14 +37,14 @@
 </head>
 
 <body>
+    <h1>Lista de la compra</h1>
     <div id="body">
         <ul v-bind:class="item">
             <li v-for="(producto,index) in productos" v-bind:class="{ rojo : producto.precio<10}">
                 <span>{{ producto.nombre }} </span>
                 <span>{{ producto.precio }}€ x </span>
                 <input v-model:value=producto.unidad type="number">
-                <span>uds. = </span>
-                <span>{{ totalProducto(index) }} </span>
+                <span>uds. = {{ totalProducto(index) }} </span>
                 <button v-on:click="borrar(index)">borrar</button>
             </li>
         </ul>
@@ -52,7 +52,7 @@
 
         <p> <button v-on:click="agregar">Agregar</button>
             <button v-on:click="borrar_ultimo">Borrar</button></p>
-        <p>{{ totalProductos }}</p>
+        <h3> Total: {{ totalProductos }} €</h3>
     </div>
 
     <script>
@@ -93,7 +93,11 @@
             },
             computed: {
                 totalProductos: function() {
-
+                    var total = 0;
+                    for (var i = 0; i < this.productos.length; i++) {
+                        total += this.totalProducto(i);
+                    }
+                    return total;
                 }
             }
 
